@@ -24,7 +24,7 @@ import java.io.IOException;
 
 public class NetworkSF
 {
-	public static final NetworkSF INSTANCE = null;
+	public static NetworkSF INSTANCE = null;
 
 	private final FMLEventChannel channel;
 
