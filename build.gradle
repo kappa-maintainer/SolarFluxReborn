@@ -1,6 +1,6 @@
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
         maven {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
@@ -11,7 +11,9 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath("com.anatawa12.forge:ForgeGradle:2.3-1.0.+") {
+            changing = true
+        }
     }
 }
 
@@ -59,8 +61,8 @@ repositories {
         url = "http://maven.covers1624.net"
     }
     maven {
-        name = "CurseForge"
-        url = "https://minecraft.curseforge.com/api/maven/"
+	name = "CurseMaven"
+        url = "https://cursemaven.com"
     }
     maven {
         name = "jei"
@@ -69,8 +71,9 @@ repositories {
 }
 
 dependencies {
-	deobfCompile "black-hole-storage:BlackHoleStorage_${config.minecraft_version}:${config.bhs_version}:deobf"
-    runtime "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}"
+	//deobfCompile "black-hole-storage:BlackHoleStorage_1.12.2:${config.bhs_version}:deobf"
+	deobfCompile "curse.maven:bh-261061:3434798-deobf-3434799"
+    	runtime "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}"
 	deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
 }
 
