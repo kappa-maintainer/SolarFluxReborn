@@ -69,6 +69,9 @@ repositories {
 dependencies {
 	//deobfCompile "black-hole-storage:BlackHoleStorage_1.12.2:${config.bhs_version}:deobf"
 	deobfCompile "curse.maven:bh-261061:3434798-deobf-3434799"
+	deobfCompile "curse.maven:avaritia-261348:3143349"
+	deobfCompile "curse.maven:tc-223628:2629023"
+	deobfCompile "curse.maven:de-223565:3431261"
     	runtime "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}"
 	deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
 }
