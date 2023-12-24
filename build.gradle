@@ -72,6 +72,7 @@ dependencies {
 	deobfCompile "curse.maven:avaritia-261348:3143349"
 	deobfCompile "curse.maven:tc-223628:2629023"
 	deobfCompile "curse.maven:de-223565:3431261"
+	deobfCompile "curse.maven:dc-231382:3408276"
     	runtime "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}"
 	deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
 }
