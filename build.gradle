@@ -17,10 +17,6 @@ buildscript {
     }
 }
 
-plugins {
-    id 'com.matthewprenger.cursegradle' version '1.1.0'
-	id 'se.bjurr.gitchangelog.git-changelog-gradle-plugin' version '1.56'
-}
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 
@@ -120,75 +116,3 @@ artifacts {
 	archives srcJar
 }
 
-curseforge {
-	apiKey = System.env.CURSEFORGE_API_KEY
-	project {
-		id = "${config.cf_project}"
-		changelogType = 'html'
-		changelog = ""
-		releaseType = "${config.release_type}"
-		addGameVersion "${config.minecraft_version}"
-		mainArtifact(jar) {
-		  displayName = "[${config.minecraft_version}] ${config.mod_name} - ${config.mod_version}"
-		}
-		addArtifact(deobfJar) {
-		  displayName = "[${config.minecraft_version}] ${config.mod_name} (Deobfuscated) - ${config.mod_version}"
-		}
-		addArtifact(srcJar) {
-		  displayName = "[${config.minecraft_version}] ${config.mod_name} (Sources) - ${config.mod_version}"
-		}
-		relations {
-            optionalLibrary 'Baubles'
-			optionalLibrary 'Black-Hole-Storage'
-			optionalLibrary 'Avaritia-1-10'
-			optionalLibrary 'Thaumcraft'
-			optionalLibrary 'Draconic-Evolution'
-        }
-	}
-}
-
-task signJar(type: SignJar, dependsOn: reobfJar) {
-    onlyIf {
-        System.env.MC_KS_PASS != null
-    }
-    keyStore = System.env.MC_KS_PATH
-    alias = System.env.MC_KS_ALIAS
-    storePass = System.env.MC_KS_PASS
-    keyPass = System.env.MC_KS_PASS
-    inputFile = jar.archivePath
-    outputFile = jar.archivePath
-}
-
-task signDeobfJar(type: SignJar, dependsOn: deobfJar) {
-    onlyIf {
-        System.env.MC_KS_PASS != null
-    }
-    keyStore = System.env.MC_KS_PATH
-    alias = System.env.MC_KS_ALIAS
-    storePass = System.env.MC_KS_PASS
-    keyPass = System.env.MC_KS_PASS
-    inputFile = deobfJar.archivePath
-    outputFile = deobfJar.archivePath
-}
-
-task signSrcJar(type: SignJar, dependsOn: srcJar) {
-    onlyIf {
-        System.env.MC_KS_PASS != null
-    }
-    keyStore = System.env.MC_KS_PATH
-    alias = System.env.MC_KS_ALIAS
-    storePass = System.env.MC_KS_PASS
-    keyPass = System.env.MC_KS_PASS
-    inputFile = srcJar.archivePath
-    outputFile = srcJar.archivePath
-}
-
-build.dependsOn signJar
-build.dependsOn signDeobfJar
-build.dependsOn signSrcJar
-
-afterEvaluate {
-	tasks["curseforge${config.cf_project}"].dependsOn.add(signJar)
-	tasks["curseforge${config.cf_project}"].dependsOn.add(signDeobfJar)
-	tasks["curseforge${config.cf_project}"].dependsOn.add(signSrcJar)
-}
